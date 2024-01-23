@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController {
+class WeatherApp: UIViewController {
     let cityTextField = UITextField()
     let updateWeatherButton = UIButton(type: .system)
     let temperatureLabel = UILabel()
