@@ -18,6 +18,7 @@
 		1F2C2AF22B5DC5BD002029B5 /* weatherUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C2AF12B5DC5BD002029B5 /* weatherUITestsLaunchTests.swift */; };
 		1F2C2AFF2B5DC5E8002029B5 /* weathermodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C2AFE2B5DC5E8002029B5 /* weathermodel.swift */; };
 		1F2C2B012B5E3629002029B5 /* weatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C2B002B5E3629002029B5 /* weatherViewModel.swift */; };
+		1F2C2B032B5FAF4E002029B5 /* labelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2C2B022B5FAF4E002029B5 /* labelModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		1F2C2AF12B5DC5BD002029B5 /* weatherUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1F2C2AFE2B5DC5E8002029B5 /* weathermodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weathermodel.swift; sourceTree = "<group>"; };
 		1F2C2B002B5E3629002029B5 /* weatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weatherViewModel.swift; sourceTree = "<group>"; };
+		1F2C2B022B5FAF4E002029B5 /* labelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = labelModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				1F2C2ADC2B5DC5BC002029B5 /* Info.plist */,
 				1F2C2AFE2B5DC5E8002029B5 /* weathermodel.swift */,
 				1F2C2B002B5E3629002029B5 /* weatherViewModel.swift */,
+				1F2C2B022B5FAF4E002029B5 /* labelModel.swift */,
 			);
 			path = weather;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				1F2C2ACF2B5DC5BA002029B5 /* AppDelegate.swift in Sources */,
 				1F2C2AFF2B5DC5E8002029B5 /* weathermodel.swift in Sources */,
 				1F2C2AD12B5DC5BA002029B5 /* SceneDelegate.swift in Sources */,
+				1F2C2B032B5FAF4E002029B5 /* labelModel.swift in Sources */,
 				1F2C2B012B5E3629002029B5 /* weatherViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,6 +10,7 @@ struct WeatherModel: Codable {
     let main: Main
     let wind: Wind
     let weather: [Weather]
+    let name: String
 }
 struct Main: Codable {
     let temp: Double
