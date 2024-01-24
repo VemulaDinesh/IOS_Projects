@@ -115,6 +115,7 @@ class WeatherApp: UIViewController {
     }
     @objc func getLocation(_ sender: UIButton) {//fetch the current location weather details and update the UI
         // Perform the required function after clicking the getLocation button
+        cityTextField.text=nil
         weatherViewModel.fetchWeatherDataForCurrentLocation { result in
             switch result {
             case .success(let weatherModel):
@@ -150,7 +151,7 @@ class WeatherApp: UIViewController {
         }
     }
 
-    func hideError() {//hiding the error 
+    func hideError() {//hiding the error
         labels.errorLabel.text = nil
         labels.errorLabel.isHidden = true
     }
