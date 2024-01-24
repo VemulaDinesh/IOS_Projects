@@ -24,7 +24,7 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
     }
 
-    // MARK: - Session and Data Retrieval
+    //Session and Data Retrieval
 
     func fetchData(with url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let session = URLSession.shared
@@ -45,7 +45,7 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
         task.resume()
     }
 
-    // MARK: - Weather Data Fetching
+    //Weather Data Fetching for any city
 
     func fetchWeatherData(for city: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
         let apiKey = "609208b6d272befd85b3fbcd4aaeb21f"
@@ -66,7 +66,7 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
             }
         }
     }
-
+    //Weather Data Fetching for live location
     func fetchWeatherDataForCurrentLocation(completion: @escaping (Result<WeatherModel, Error>) -> Void) {
         guard let location = locationManager.location else {
             let locationError = NSError(domain: "Location Error", code: 2, userInfo: nil)
@@ -93,7 +93,7 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    // MARK: - JSON Decoding
+    //JSON Decoding
 
     func decodeWeatherData(data: Data, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
         let decoder = JSONDecoder()

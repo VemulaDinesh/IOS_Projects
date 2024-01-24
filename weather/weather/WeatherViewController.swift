@@ -1,16 +1,8 @@
 import UIKit
 
-class WeatherApp: UIViewController {
+class WeatherViewController: UIViewController {
     let cityTextField = UITextField()
     let updateWeatherButton = UIButton(type: .system)
-    let temperatureLabel = UILabel()
-    let humidityLabel = UILabel()
-    let pressureLabel = UILabel()
-    let windLabel = UILabel()
-    let weatherMainLabel = UILabel()
-    let descriptionLabel = UILabel()
-    let errorLabel = UILabel()
-    let cityNameLabel = UILabel()
     let currentLocationButton = UIButton(type: .system)
     var weatherViewModel = WeatherViewModel()
       var labels = WeatherLabels()
