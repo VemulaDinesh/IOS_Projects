@@ -5,21 +5,28 @@ class WeatherViewController: UIViewController {
     let updateWeatherButton = UIButton(type: .system)
     let currentLocationButton = UIButton(type: .system)
     var weatherViewModel = WeatherViewModel()
-      var labels = WeatherLabels()
+    let errorLabel = UILabel()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
-        // For testing purposes, fetch weather data on viewDidLoad
-       // updateWeather(updateWeatherButton)
+        navigationItem.title = "Weather"
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.tintColor = .white
     }
-
     private func setupUI() {
         // Setting up cityTextField
         view.addSubview(cityTextField)
         cityTextField.borderStyle = .roundedRect
         cityTextField.placeholder = "Enter City"
         cityTextField.translatesAutoresizingMaskIntoConstraints = false
+        cityTextField.textColor = .white
+        cityTextField.layer.borderColor = UIColor.white.cgColor
+        cityTextField.layer.borderWidth = 1.0
+        cityTextField.layer.cornerRadius = 5.0
+        if let placeholder = cityTextField.placeholder {
+            cityTextField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        }
+
         NSLayoutConstraint.activate([
             cityTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             cityTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -52,40 +59,30 @@ class WeatherViewController: UIViewController {
             currentLocationButton.leadingAnchor.constraint(equalTo: updateWeatherButton.trailingAnchor, constant: 10)
         ])
         
+            view.addSubview(errorLabel)
+            errorLabel.numberOfLines = 0
+            errorLabel.textColor = .black // Set text color as needed
+            errorLabel.backgroundColor = .systemMint// Set background color as needed
         
-        // Setting up other UI elements
-        //let labels = [cityNameLabel,temperatureLabel, humidityLabel, pressureLabel, windLabel, weatherMainLabel, descriptionLabel, errorLabel,]
-        for label in labels {
-            view.addSubview(label)
-            label.numberOfLines = 0
-            label.textColor = .black // Set text color as needed
-            label.backgroundColor = .systemMint// Set background color as needed
-        }
         // Add constraints for other UI elements
-        var previousLabel: UILabel?
-        for label in labels {
-            label.translatesAutoresizingMaskIntoConstraints = false
+       
+            errorLabel.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
-                label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                label.heightAnchor.constraint(greaterThanOrEqualToConstant: 20)
+                errorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                errorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                errorLabel.heightAnchor.constraint(greaterThanOrEqualToConstant: 20),
+                errorLabel.topAnchor.constraint(equalTo: updateWeatherButton.bottomAnchor, constant: 50)
             ])
-
-            if let previousLabel = previousLabel {
-                // If there is a previous label, set top constraint to it
-                label.topAnchor.constraint(equalTo: previousLabel.bottomAnchor, constant: 20).isActive = true
-            } else {
-                // If there is no previous label, set top constraint to updateWeatherButton
-                label.topAnchor.constraint(equalTo: updateWeatherButton.bottomAnchor, constant: 20).isActive = true
-            }
-
-            previousLabel = label
-        }
-      
-        // Hide labels initially
-        labels.forEach { $0.isHidden = true }
+        errorLabel.isHidden = true
     }
-
+//    @objc func updateWeather(_ sender: UIButton)
+//    {
+//        
+//    }
+//    @objc func getLocation(_ sender: UIButton)
+//    {
+//        
+//    }
     @objc func updateWeather(_ sender: UIButton) {//fetch the weather details and update the UI
         guard let city = cityTextField.text, !city.isEmpty else {
             showError("Empty Input, Please enter any city")
@@ -96,8 +93,12 @@ class WeatherViewController: UIViewController {
             switch result {
             case .success(let weatherModel):
                 DispatchQueue.main.async {
-                    self.updateUI(with: weatherModel)
+                    let vc = ResultViewController()
                     self.hideError()
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+                    vc.configure(Weathermodel : weatherModel)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                   
                 }
             case .failure(let error):
                 self.showError("Entered city didn't match")
@@ -112,8 +113,11 @@ class WeatherViewController: UIViewController {
             switch result {
             case .success(let weatherModel):
                 DispatchQueue.main.async {
-                    self.updateUI(with: weatherModel)
+                    let vc = ResultViewController()
+                    self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+                    vc.configure(Weathermodel : weatherModel)
                     self.hideError()
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
             case .failure(let error):
                 self.showError("Error fetching weather data for current location:")
@@ -122,29 +126,18 @@ class WeatherViewController: UIViewController {
         }
     }
 
-    func updateUI(with weatherModel: WeatherModel) {//UI labels update
-        labels.temperatureLabel.text = "Temperature: \(weatherModel.main.temp-273)°C"
-        labels.humidityLabel.text = "Humidity: \(weatherModel.main.humidity)%"
-        labels.pressureLabel.text = "Pressure: \(weatherModel.main.pressure) hPa"
-        labels.windLabel.text = "Wind Speed: \(weatherModel.wind.speed) m/s"
-        labels.weatherMainLabel.text = "Weather Main: \(weatherModel.weather[0].main)"
-        labels.descriptionLabel.text = "Description: \(weatherModel.weather[0].description)"
-        labels.cityNameLabel.text = "City: \(weatherModel.name)"
-
-        // Show labels
-       labels.forEach { $0.isHidden = false }
-    }
+  
 
     func showError(_ message: String) {//errorlbel updation
         DispatchQueue.main.async {
-            self.labels.forEach { $0.isHidden = true }
-            self.labels.errorLabel.text = message
-            self.labels.errorLabel.isHidden = false
+          
+            self.errorLabel.text = message
+            self.errorLabel.isHidden = false
         }
     }
 
     func hideError() {//hiding the error
-        labels.errorLabel.text = nil
-        labels.errorLabel.isHidden = true
+        errorLabel.text = nil
+        errorLabel.isHidden = true
     }
 }

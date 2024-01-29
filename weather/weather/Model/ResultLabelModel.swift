@@ -9,7 +9,7 @@ class WeatherLabels: Sequence {
     let windLabel = UILabel()
     let weatherMainLabel = UILabel()
     let descriptionLabel = UILabel()
-    let errorLabel = UILabel()
+
 
     // Make WeatherLabels iterable
     func makeIterator() -> WeatherLabelsIterator {
@@ -37,7 +37,6 @@ class WeatherLabelsIterator: IteratorProtocol {
         case 4: label = labels.windLabel
         case 5: label = labels.weatherMainLabel
         case 6: label = labels.descriptionLabel
-        case 7: label = labels.errorLabel
         default: label = nil
         }
         return label

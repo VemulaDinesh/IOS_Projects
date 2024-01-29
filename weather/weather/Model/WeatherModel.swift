@@ -26,3 +26,4 @@ struct Weather: Codable {
     let main: String
     let description: String
 }
+
