@@ -2,12 +2,16 @@
 
 import Foundation
 import CoreLocation
-
+struct Constants
+{
+    static let apiKey:String = "609208b6d272befd85b3fbcd4aaeb21f"
+    static let baseURL:String = "https://api.openweathermap.org/data/2.5/"
+}
 class WeatherViewModel: NSObject, CLLocationManagerDelegate {
-
     var weatherModel: WeatherModel?
     var errorMessage: String?
     let locationManager = CLLocationManager()
+    
 
     override init() {
         super.init()
@@ -48,9 +52,8 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
     //Weather Data Fetching for any city
 
     func fetchWeatherData(for city: String, completion: @escaping (Result<WeatherModel, Error>) -> Void) {
-        let apiKey = "609208b6d272befd85b3fbcd4aaeb21f"
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?q=\(city)&appid=\(apiKey)"
-
+        //let apiKey = "609208b6d272befd85b3fbcd4aaeb21f"
+        let urlString = Constants.baseURL + "weather?q=\(city)&appid=\(Constants.apiKey)"
         guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
             return
@@ -73,9 +76,7 @@ class WeatherViewModel: NSObject, CLLocationManagerDelegate {
             completion(.failure(locationError))
             return
         }
-
-        let apiKey = "609208b6d272befd85b3fbcd4aaeb21f"
-        let urlString = "https://api.openweathermap.org/data/2.5/weather?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&appid=\(apiKey)"
+        let urlString = Constants.baseURL + "weather?lat=\(location.coordinate.latitude)&lon=\(location.coordinate.longitude)&appid=\(Constants.apiKey)"
 
         guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0, userInfo: nil)))
